@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqbwax38fpwi6"]
+
+[ext_resource type="Script" uid="uid://clw5u8ve07xtx" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dcncx0gu0qm4b" path="res://sky_timer.gd" id="1_ig7tw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+ground_bottom_color = Color(0.658824, 0.752941, 0.784314, 1)
+ground_horizon_color = Color(0.686275, 0.933333, 0.933333, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+ambient_light_source = 3
+tonemap_mode = 3
+fog_enabled = true
+fog_light_color = Color(0.654902, 0.74902, 0.788235, 1)
+fog_light_energy = 0.3
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_0xm2m")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="Sunlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1.95641, 0)
+
+[node name="SkyTimer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
+script = ExtResource("1_ig7tw")
+
+[node name="Label3D" type="Label3D" parent="SkyTimer"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+billboard = 1
+text = "TIme: "
