@@ -1,4 +1,1 @@
-#This is the Prototype for BelowZero
-## Test
-###Test 2
-####Test 3
+## This is the prototype for the BelowZero project
