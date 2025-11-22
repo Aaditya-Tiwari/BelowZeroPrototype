@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c30mmf88rxosk"]
+
+[ext_resource type="Script" uid="uid://dpeli7e8hc742" path="res://Root.gd" id="1_66v8m"]
+
+[node name="Root" type="Node3D"]
+script = ExtResource("1_66v8m")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
