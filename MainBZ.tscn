@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://oyddthstsv6l"]
+
+[ext_resource type="Script" uid="uid://qs55nv1u02tk" path="res://main_bz.gd" id="1_w7wm1"]
+[ext_resource type="Script" uid="uid://ddiwlm4j77l1e" path="res://sky_timer.gd" id="2_6th7i"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_w7wm1")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 0.987852, -0.1554, 0, 0.1554, 0.987852, 0, 0, 0)
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="SkyTimer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66773, -1.92378)
+script = ExtResource("2_6th7i")
+
+[node name="Label3D" type="Label3D" parent="SkyTimer"]
+text = "Timer"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.690453, 0.723377, 0, -0.723377, 0.690453, 0, 2.79911, 0)
