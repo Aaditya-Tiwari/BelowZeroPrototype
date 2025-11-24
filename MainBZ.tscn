@@ -1,21 +1,215 @@
-[gd_scene load_steps=3 format=3 uid="uid://oyddthstsv6l"]
+[gd_scene load_steps=28 format=3 uid="uid://oyddthstsv6l"]
 
 [ext_resource type="Script" uid="uid://qs55nv1u02tk" path="res://main_bz.gd" id="1_w7wm1"]
 [ext_resource type="Script" uid="uid://ddiwlm4j77l1e" path="res://sky_timer.gd" id="2_6th7i"]
+[ext_resource type="Script" uid="uid://dmyy1ai5qigob" path="res://left_controller.gd" id="2_bd1x5"]
+[ext_resource type="Texture2D" uid="uid://ctqgm4rvf6j7n" path="res://Materials/PlaneMap.png" id="3_8tmdd"]
+[ext_resource type="Material" uid="uid://c86gddfquevws" path="res://Materials/highlightTp.tres" id="4_eoeg6"]
+[ext_resource type="Material" uid="uid://dh0hbmq0hfwjh" path="res://Materials/numbersTP.tres" id="5_eoeg6"]
+[ext_resource type="Material" uid="uid://dk1bqrrb0clsm" path="res://Materials/lakeWater.tres" id="7_axn8f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_axn8f"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_56t5v"]
+albedo_texture = ExtResource("3_8tmdd")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_poqd1"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="TextMesh" id="TextMesh_axn8f"]
+text = "1"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_56t5v"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="TextMesh" id="TextMesh_poqd1"]
+text = "2"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fwxs6"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="TextMesh" id="TextMesh_uq4yv"]
+text = "3"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_iqij7"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="TextMesh" id="TextMesh_06on4"]
+text = "4"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eoeg6"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.7
+
+[sub_resource type="TextMesh" id="TextMesh_56t5v"]
+text = "1"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uq4yv"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.7
+
+[sub_resource type="TextMesh" id="TextMesh_iqij7"]
+text = "2"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_06on4"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.7
+
+[sub_resource type="TextMesh" id="TextMesh_20ibx"]
+text = "3"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p7y7w"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.7
+
+[sub_resource type="TextMesh" id="TextMesh_cr6ec"]
+text = "4"
+
+[sub_resource type="SphereMesh" id="SphereMesh_wrjae"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_txl2j"]
+size = Vector3(12, 0.6, 12)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w7wm1")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.2)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 0.987852, -0.1554, 0, 0.1554, 0.987852, 0, 0, 0)
+transform = Transform3D(-1, -1.35252e-08, -8.63702e-08, 0, 0.98796, -0.15471, 8.74228e-08, -0.15471, -0.98796, 0, 1.7, 0)
 
-[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftController" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("teleport_spots_parent", "xr_origin", "bird_eye_menu_root", "look_at_target")]
 tracker = &"left_hand"
+script = ExtResource("2_bd1x5")
+teleport_spots_parent = NodePath("../../TeleportLocations")
+xr_origin = NodePath("..")
+bird_eye_menu_root = NodePath("../BirdsEyeMenu")
+look_at_target = NodePath("../../LakeCenter")
+highlight_material = ExtResource("4_eoeg6")
+default_material = ExtResource("4_eoeg6")
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
+
+[node name="BirdsEyeMenu" type="Node3D" parent="XROrigin3D"]
+transform = Transform3D(0.64679, 0, 0.762668, 0, 1, 0, -0.762668, 0, 0.64679, -0.674, 1.68, 0)
+
+[node name="MapPlane" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu"]
+transform = Transform3D(0.642788, 0.766044, 3.34849e-08, 0, -4.37114e-08, 1, 0.766044, -0.642788, -2.80971e-08, -0.202, 0, 1.142)
+mesh = SubResource("PlaneMesh_axn8f")
+surface_material_override/0 = SubResource("StandardMaterial3D_56t5v")
+
+[node name="Highlight0" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu"]
+transform = Transform3D(0.64679, 0.762668, 3.33373e-08, 0, -4.37114e-08, 1, 0.762668, -0.64679, -2.82721e-08, -0.184, -0.447, 1.127)
+mesh = SubResource("CylinderMesh_poqd1")
+surface_material_override/0 = ExtResource("4_eoeg6")
+
+[node name="Number1" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu/Highlight0"]
+transform = Transform3D(-0.499997, 0.0017453, 3.05157e-11, 0, -2.18557e-08, 0.2, 0.0017453, 0.499997, 8.74222e-09, 0, 0.036, 0)
+mesh = SubResource("TextMesh_axn8f")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Highlight1" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu"]
+transform = Transform3D(0.64679, 0.762668, 3.33373e-08, 0, -4.37114e-08, 1, 0.762668, -0.64679, -2.82721e-08, 0.102, -0.01, 1.471)
+mesh = SubResource("CylinderMesh_56t5v")
+surface_material_override/0 = ExtResource("4_eoeg6")
+
+[node name="Number2" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu/Highlight1"]
+transform = Transform3D(-0.498399, 0.00210947, 0.01597, 0.0399791, 0.0308993, 0.198976, -0.00036867, 0.49904, -0.0123876, 0, 0.032, 0)
+mesh = SubResource("TextMesh_poqd1")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Highlight2" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu"]
+transform = Transform3D(0.64679, 0.762668, 3.33373e-08, 0, -4.37114e-08, 1, 0.762668, -0.64679, -2.82721e-08, -0.194, 0.441, 1.125)
+mesh = SubResource("CylinderMesh_fwxs6")
+surface_material_override/0 = ExtResource("4_eoeg6")
+
+[node name="Number3" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu/Highlight2"]
+transform = Transform3D(-0.499963, -0.00610845, -1.06803e-10, 0, -2.18557e-08, 0.2, -0.00610845, 0.499963, 8.74163e-09, 0, 0.031, 0.001)
+mesh = SubResource("TextMesh_uq4yv")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Highlight3" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu"]
+transform = Transform3D(0.64679, 0.762668, 3.33373e-08, 0, -4.37114e-08, 1, 0.762668, -0.64679, -2.82721e-08, -0.474, -0.001, 0.786)
+mesh = SubResource("CylinderMesh_iqij7")
+surface_material_override/0 = ExtResource("4_eoeg6")
+
+[node name="Number4" type="MeshInstance3D" parent="XROrigin3D/BirdsEyeMenu/Highlight3"]
+transform = Transform3D(-0.499625, -0.000154525, -0.0077432, -0.019358, 0.0079788, 0.199825, 0.00015454, 0.499936, -0.00319152, 0.005, 0.03, 0.002)
+mesh = SubResource("TextMesh_06on4")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="TeleportLocations" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0)
+
+[node name="Place1" type="Node3D" parent="TeleportLocations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -6.5)
+
+[node name="Highlight0" type="MeshInstance3D" parent="TeleportLocations/Place1"]
+mesh = SubResource("CylinderMesh_eoeg6")
+
+[node name="Number1" type="MeshInstance3D" parent="TeleportLocations/Place1/Highlight0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0.026, 0.21)
+mesh = SubResource("TextMesh_56t5v")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Place2" type="Node3D" parent="TeleportLocations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.3, 0)
+
+[node name="Highlight0" type="MeshInstance3D" parent="TeleportLocations/Place2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.265, 0)
+mesh = SubResource("CylinderMesh_uq4yv")
+
+[node name="Number2" type="MeshInstance3D" parent="TeleportLocations/Place2/Highlight0"]
+transform = Transform3D(-8.74228e-08, 0, -1, 0, 2, 0, 2, 0, -4.37114e-08, -0.219, -0.018, 0)
+mesh = SubResource("TextMesh_iqij7")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Place3" type="Node3D" parent="TeleportLocations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 6.5)
+
+[node name="Highlight0" type="MeshInstance3D" parent="TeleportLocations/Place3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.265, 0)
+mesh = SubResource("CylinderMesh_06on4")
+
+[node name="Number3" type="MeshInstance3D" parent="TeleportLocations/Place3/Highlight0"]
+transform = Transform3D(-2, 0, 8.74228e-08, 0, 2, 0, -1.74846e-07, 0, -1, 0, 0.041, -0.211)
+mesh = SubResource("TextMesh_20ibx")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="Place4" type="Node3D" parent="TeleportLocations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.3, 0)
+
+[node name="Highlight0" type="MeshInstance3D" parent="TeleportLocations/Place4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.265, 0)
+mesh = SubResource("CylinderMesh_p7y7w")
+
+[node name="Number4" type="MeshInstance3D" parent="TeleportLocations/Place4/Highlight0"]
+transform = Transform3D(-8.74228e-08, 0, 1, 0, 2, 0, -2, 0, -4.37114e-08, 0.212, -0.019, 0)
+mesh = SubResource("TextMesh_cr6ec")
+surface_material_override/0 = ExtResource("5_eoeg6")
+
+[node name="LakeCenter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.690076, 0)
+
+[node name="TargetMarker" type="MeshInstance3D" parent="LakeCenter"]
+mesh = SubResource("SphereMesh_wrjae")
 
 [node name="SkyTimer" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66773, -1.92378)
@@ -25,4 +219,24 @@ script = ExtResource("2_6th7i")
 text = "Timer"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.690453, 0.723377, 0, -0.723377, 0.690453, 0, 2.79911, 0)
+transform = Transform3D(1, 0, 0, 0, 0.690453, 0.723377, 0, -0.723377, 0.690453, -5.94901, 2.79911, 0)
+
+[node name="LakeWater" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.480381, 0)
+mesh = SubResource("BoxMesh_txl2j")
+surface_material_override/0 = ExtResource("7_axn8f")
+
+[node name="IceFloor" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="IceSheet" type="CSGBox3D" parent="IceFloor"]
+size = Vector3(15, 0.2, 15)
+
+[node name="LakeHoleCutter" type="CSGCylinder3D" parent="IceFloor"]
+operation = 2
+radius = 6.0
+height = 1.0
+sides = 64
+
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/LeftController" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/LeftController" to="XROrigin3D/LeftController" method="_on_button_released"]
