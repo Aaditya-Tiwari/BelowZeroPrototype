@@ -3,14 +3,14 @@ extends Node3D
 var xr_interface: XRInterface
 
 func _ready():
+	# 1) See what XR interfaces Godot finds at all
+	var interfaces = XRServer.get_interfaces()
+	print("XR interfaces found: ", interfaces)
+
+	
 	xr_interface = XRServer.find_interface("OpenXR")
-	if xr_interface and xr_interface.is_initialized():
-		print("OpenXR initialized successfully")
-
-		# Turn off v-sync!
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-
-		# Change our main viewport to output to the HMD
+	if xr_interface:
+		print("Found OpenXR interface: ", xr_interface.get_name())
 		get_viewport().use_xr = true
 	else:
-		print("OpenXR not initialized, please check if your headset is connected")
+		print("OpenXR interface not found (XRServer.find_interface returned null)")
